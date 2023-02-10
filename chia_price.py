@@ -1,6 +1,6 @@
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QHBoxLayout, QWidget
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton, QSlider
 from PyQt5.QtCore import Qt, QTimer, QPoint
-from PyQt5.QtGui import QFont, QPainter
+from PyQt5.QtGui import QFont
 import sys
 import requests
 
@@ -18,17 +18,36 @@ class TitleBar(QMainWindow):
         self.oldPos = event.globalPos()
 
 class PriceMonitor(TitleBar):
+    def open_url(self):
+        import webbrowser
+        webbrowser.open("https://dexie.space/offers/XCH/USDS")
+    
+    def change_opacity(self):
+        opacity = float(self.opacity_slider.value()) / 100
+        self.setWindowOpacity(opacity)
+
     def __init__(self):
         super().__init__()        
         self.resize(207, 80)
         self.move(QApplication.desktop().screen().rect().center()- self.rect().center())
-        self.title_label = QLabel("Dexie Chia Price", self)
+        self.title_label = QLabel("<a style='color: green' href='https://dexie.space/offers/XCH/USDS'>Dexie Chia Price</a>", self)
         self.title_label.setFont(QFont("Helvetica", 9))
         self.title_label.move (10,-5)
+        self.title_label.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
+        self.title_label.linkActivated.connect(self.open_url)
         self.price_label = QLabel("Loading...", self)
         self.price_label.setFont(QFont("Helvetica", 16))
         self.price_label.resize(128,25)
         self.price_label.move(6, 25)
+
+        self.opacity_slider = QSlider(Qt.Horizontal, self)
+        self.opacity_slider.setRange(0, 100)
+        self.opacity_slider.setSingleStep(1)
+        self.opacity_slider.setValue(100)
+        self.opacity_slider.setWindowOpacity(1.0)
+        self.opacity_slider.valueChanged.connect(self.change_opacity)
+        self.opacity_slider.resize(50,10)
+        self.opacity_slider.move(155, 65)
 
         self.update_interval = 30
         self.time_left = self.update_interval
@@ -46,10 +65,9 @@ class PriceMonitor(TitleBar):
         close_button = QPushButton("X", self)
         close_button.clicked.connect(self.close)
         close_button.resize(25,20)
-        #close_button.move(self.width() - 40, 0)
         close_button.move(180, 0)
 
-        self.timer = QTimer()
+        self.timer = QTimer()        
         self.timer.timeout.connect(self.countdown_timer)
         self.timer.start(1000)
 
