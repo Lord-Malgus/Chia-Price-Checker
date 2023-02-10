@@ -8,3 +8,5 @@ Very basic GUI app written in python that periodically polls dexie.space for chi
 
 
 Windows binary available under releases for those that don't won't to install python.
+
+Data from - https://dexie.space/
