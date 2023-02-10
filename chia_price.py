@@ -20,15 +20,15 @@ class TitleBar(QMainWindow):
 class PriceMonitor(TitleBar):
     def __init__(self):
         super().__init__()        
-        self.resize(230, 80)
+        self.resize(207, 80)
         self.move(QApplication.desktop().screen().rect().center()- self.rect().center())
         self.title_label = QLabel("Dexie Chia Price", self)
         self.title_label.setFont(QFont("Helvetica", 9))
-        self.title_label.move (20,-5)
+        self.title_label.move (10,-5)
         self.price_label = QLabel("Loading...", self)
         self.price_label.setFont(QFont("Helvetica", 16))
-        self.price_label.resize(130,25)
-        self.price_label.move(13, 25)
+        self.price_label.resize(128,25)
+        self.price_label.move(6, 25)
 
         self.update_interval = 30
         self.time_left = self.update_interval
@@ -36,18 +36,18 @@ class PriceMonitor(TitleBar):
         self.update_button = QPushButton(f"{self.update_interval} secs", self)
         self.update_button.clicked.connect(self.change_interval)
         self.update_button.resize(55,30)
-        self.update_button.move(170, 30)
+        self.update_button.move(150, 30)
 
         self.timer_label = QLabel(f"next update: {self.time_left} secs", self)
         self.timer_label.setFont(QFont("Helvetica", 8))
         self.timer_label.resize(105,35)
-        self.timer_label.move(20, 50)
+        self.timer_label.move(10, 50)
 
         close_button = QPushButton("X", self)
         close_button.clicked.connect(self.close)
-        close_button.resize(30,20)
+        close_button.resize(25,20)
         #close_button.move(self.width() - 40, 0)
-        close_button.move(195, 0)
+        close_button.move(180, 0)
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.countdown_timer)
