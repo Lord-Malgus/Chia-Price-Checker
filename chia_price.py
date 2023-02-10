@@ -73,7 +73,7 @@ class PriceMonitor(TitleBar):
         response = requests.get("https://api.dexie.space/v1/offers?requested=USDS&offered=XCH&compact=true&page_size=1")
         data = response.json()
         price = data['offers'][0]['price']
-        self.price_label.setText(f"Price: ${price}")
+        self.price_label.setText(f"${price}")
 
     def countdown_timer(self):
         if self.time_left > 0:
