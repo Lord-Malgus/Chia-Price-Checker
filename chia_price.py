@@ -50,7 +50,7 @@ class PriceMonitor(TitleBar):
         # Set the size and position of the window
         self.resize(207, 80)
         self.move(QApplication.desktop().screen().rect().center()- self.rect().center())
-        # Create a label to display the link to the Chia price website
+        # Create a label to display the link to the dexie website
         self.title_label = QLabel("<a style='color: green' href='https://dexie.space/offers/XCH/USDS'>Dexie Chia Price</a>", self)
         self.title_label.setFont(QFont("Arial", 9))
         self.title_label.move (10,-5)
