@@ -12,6 +12,6 @@ Very basic GUI app written in python that periodically polls dexie.space for chi
 
 
 
-Self contained Windows binary available under releases if you want the ablity to run it without python.
+Self contained stand-alone Windows binary available under releases if you want the ablity to run it without python.
 
 Price data from - https://dexie.space/
