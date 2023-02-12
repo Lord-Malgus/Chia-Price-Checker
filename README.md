@@ -16,4 +16,4 @@ Self contained stand-alone Windows binary available under releases if you want t
 
 Price data from - https://dexie.space/
 
-https://img.shields.io/github/downloads/Lord-Malgus/Chia-Price-Checker/total
+<img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Lord-Malgus/Chia-Price-Checker/total?style=plastic">
