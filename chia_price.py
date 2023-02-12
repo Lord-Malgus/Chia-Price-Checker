@@ -47,20 +47,29 @@ class PriceMonitor(TitleBar):
     def __init__(self):
         # Initialize the custom TitleBar main window
         super().__init__()        
+
         # Set the size and position of the window
         self.resize(207, 80)
         self.move(QApplication.desktop().screen().rect().center()- self.rect().center())
-        # Create a label to display the link to the dexie website
+
+        # Create a label to display the link to the Chia price website
         self.title_label = QLabel("<a style='color: green' href='https://dexie.space/offers/XCH/USDS'>Dexie Chia Price</a>", self)
         self.title_label.setFont(QFont("Arial", 9))
         self.title_label.move (10,-5)
         self.title_label.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
         self.title_label.linkActivated.connect(self.open_url)
+
         # Create a label to display the Chia price
         self.price_label = QLabel("Loading...", self)
         self.price_label.setFont(QFont("Arial", 16))
         self.price_label.resize(128,25)
-        self.price_label.move(6, 25)
+        self.price_label.move(6, 23)
+
+        # Create a label to display the Chia netspace
+        self.netspace_label = QLabel("Loading...", self)
+        self.netspace_label.setFont(QFont("Arial", 8))
+        self.netspace_label.resize(180,25)
+        self.netspace_label.move(10,43)
 
         # Create a slider to adjust the opacity
         self.opacity_slider = QSlider(Qt.Horizontal, self)
@@ -91,7 +100,7 @@ class PriceMonitor(TitleBar):
         self.timer_label = QLabel(f"next update: {self.time_left} secs", self)
         self.timer_label.setFont(QFont("Arial", 8))
         self.timer_label.resize(105,35)
-        self.timer_label.move(10, 50)
+        self.timer_label.move(10, 52)
 
         close_button = QPushButton("X", self)
         close_button.clicked.connect(self.close)
@@ -120,8 +129,9 @@ class PriceMonitor(TitleBar):
             self.update_interval = 10
         self.update_button.setText(f"{self.update_interval} secs")
 
-# Method to update the price by making an API call to the Chia price website
+# Method to update the price and netspace by making API calls to the Chia price and netspace APIs
     def update_price(self):
+        # Make the API call to the Chia price website
         response = requests.get("https://api.dexie.space/v1/offers?requested=USDS&offered=XCH&compact=true&page_size=1")
         # Parse the JSON data from the API response
         data = response.json()
@@ -129,6 +139,18 @@ class PriceMonitor(TitleBar):
         price = data['offers'][0]['price']
         # Update the price label with the new price
         self.price_label.setText(f"${price}")
+
+        # Make the API call to the Chia netspace website
+        response = requests.get("https://xchscan.com/api/netspace")
+        # Parse the JSON data from the API response
+        data = response.json()
+        # Get the netspace from the JSON data
+        netspace = data['netspace']
+        # Convert the netspace from bytes to exabytes
+        netspace = netspace / (1024 ** 6)
+        # Update the netspace label with the new value
+        self.netspace_label.setText(f"Netspace: {netspace:.3f} EiB")
+
 
 # Method to handle the countdown timer for the next price update
     def countdown_timer(self):
