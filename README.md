@@ -20,4 +20,6 @@ Netspace data from - https://xchscan.com
 
 donate - xch10njutt5x9ycqf63cf633n3tatl0jygez7p4rm76mulq6vcmhdnfsnef00k
 
+Releases - https://github.com/Lord-Malgus/Chia-Price-Checker/releases
+
 <img alt="GitHub all releases" src="https://img.shields.io/github/downloads/Lord-Malgus/Chia-Price-Checker/total?style=plastic">
