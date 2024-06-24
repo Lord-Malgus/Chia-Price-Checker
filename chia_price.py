@@ -29,7 +29,7 @@ class PriceMonitor(TitleBar):
     # Method to open the Chia price website when the link is clicked
     def open_url(self):
         import webbrowser
-        webbrowser.open("https://dexie.space/offers/XCH/USDS")
+        webbrowser.open("https://xchscan.com/charts/chia-price")
     
     # Method to change the opacity of the window when the slider is adjusted
     def change_opacity(self):
@@ -53,7 +53,7 @@ class PriceMonitor(TitleBar):
         self.move(QApplication.desktop().screen().rect().center()- self.rect().center())
 
         # Create a label to display the link to the Chia price website
-        self.title_label = QLabel("<a style='color: green' href='https://dexie.space/offers/XCH/USDS'>Dexie Chia Price</a>", self)
+        self.title_label = QLabel("<a style='color: green' href='https://xchscan.com/api/chia-price'>XCHScan</a>", self)
         self.title_label.setFont(QFont("Arial", 9))
         self.title_label.move (10,-5)
         self.title_label.setTextInteractionFlags(Qt.LinksAccessibleByMouse | Qt.LinksAccessibleByKeyboard)
@@ -132,11 +132,11 @@ class PriceMonitor(TitleBar):
 # Method to update the price and netspace by making API calls to the Chia price and netspace APIs
     def update_price(self):
         # Make the API call to the Chia price website
-        response = requests.get("https://api.dexie.space/v1/offers?requested=USDS&offered=XCH&compact=true&page_size=1")
+        response = requests.get("https://xchscan.com/api/chia-price")
         # Parse the JSON data from the API response
         data = response.json()
         # Get the price from the JSON data
-        price = data['offers'][0]['price']
+        price = data['usd']
         # Update the price label with the new price
         self.price_label.setText(f"${price}")
 
