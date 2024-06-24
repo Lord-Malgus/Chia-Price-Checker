@@ -1,6 +1,5 @@
 # Chia-Price-Checker
-Chia Price Checker (dexie.space)
-
+Chia Price Checker
 Very basic GUI app written in python that periodically polls dexie.space for chia's current price.
 
 - Opacity slider 
